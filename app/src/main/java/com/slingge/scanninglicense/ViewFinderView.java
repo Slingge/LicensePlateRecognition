@@ -17,12 +17,13 @@ import androidx.annotation.Nullable;
  */
 public class ViewFinderView extends View {
 
+
     //相机遮罩框外面的线，阴影区域，滚动线
     private Paint border, area, line;
     //相机遮罩框中间透明区域
-    public Rect center;
+    public static Rect center;
     //屏幕大小
-    private int screenHeight, screenWidth;
+    public static int screenHeight, screenWidth;
     //滚动线的起始点
     private int startX, startY, endX, endY;
     //滚动线向下滚动标识
@@ -54,8 +55,8 @@ public class ViewFinderView extends View {
 
         screenHeight = context.getResources().getDisplayMetrics().heightPixels;
         screenWidth = context.getResources().getDisplayMetrics().widthPixels;
-        centerHeight = 350;
-        centerWidth = screenWidth - 100;
+        centerHeight = 300;
+        centerWidth = screenWidth - 200;
         center = getCenterRect(centerHeight, centerWidth);
 
         line = new Paint(Paint.ANTI_ALIAS_FLAG);

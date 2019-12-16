@@ -86,6 +86,49 @@ public class CameraPreviews extends SurfaceView implements SurfaceHolder.Callbac
     public void surfaceCreated(SurfaceHolder holder) {
         mCamera = getCameraInstance();
         mCamera.setPreviewCallback(this);
+
+        try {
+            //摄像头画面显示在Surface上
+            if (mCamera != null) {
+                Camera.Parameters parameters = mCamera.getParameters();
+                List<Camera.Size> sizes = parameters.getSupportedPreviewSizes();
+                int[] a = new int[sizes.size()];
+                int[] b = new int[sizes.size()];
+                for (int i = 0; i < sizes.size(); i++) {
+                    int supportH = sizes.get(i).height;
+                    int supportW = sizes.get(i).width;
+                    a[i] = Math.abs(supportW - ViewFinderView.screenHeight);
+                    b[i] = Math.abs(supportH - ViewFinderView.screenWidth);
+                    Log.d("TEST", "supportW:" + supportW + "supportH:" + supportH);
+                }
+                int minW = 0, minA = a[0];
+                for (int i = 0; i < a.length; i++) {
+                    if (a[i] <= minA) {
+                        minW = i;
+                        minA = a[i];
+                    }
+                }
+                int minH = 0, minB = b[0];
+                for (int i = 0; i < b.length; i++) {
+                    if (b[i] < minB) {
+                        minH = i;
+                        minB = b[i];
+                    }
+                }
+                Log.d("TEST", "result=" + sizes.get(minW).width + "x" + sizes.get(minH).height);
+//                List<Integer> list = parameters.getSupportedPreviewFrameRates();
+                parameters.setPreviewSize(sizes.get(minW).width, sizes.get(minH).height); // 设置预览图像大小
+//                parameters.setPreviewFrameRate(list.get(list.size() - 1));
+                mCamera.setParameters(parameters);
+//                mCamera.setDisplayOrientation(90);
+//                mCamera.startPreview();
+            }
+        } catch (Exception e) {
+            if (mCamera != null)
+                mCamera.release();
+            mCamera = null;
+        }
+
         try {
             mCamera.setPreviewDisplay(mHolder);
             mCamera.startPreview();
@@ -159,7 +202,7 @@ public class CameraPreviews extends SurfaceView implements SurfaceHolder.Callbac
             BitmapFactory.Options options = new BitmapFactory.Options();
             options.inPreferredConfig = Bitmap.Config.RGB_565;
             Bitmap bitmap = BitmapFactory.decodeByteArray(rawImage, 0, rawImage.length, options);
-            Bitmap bitmaps = cutRotateBitmap(rotateBitmap(bitmap));
+            Bitmap bitmaps = rotateBitmap(cutRotateBitmapTest(bitmap));
             float dp_asp = 8 / 10.f;
 //        imgv.setImageBitmap(bmp);
             Mat mat_src = new Mat(bitmaps.getWidth(), bitmaps.getHeight(), CvType.CV_8UC4);
@@ -206,6 +249,15 @@ public class CameraPreviews extends SurfaceView implements SurfaceHolder.Callbac
             getStatusBarHeight();
         }
         Bitmap rotatedBitMap = Bitmap.createBitmap(bmp, 0, (bmp.getHeight() / 2) - (bmp.getHeight() / 6), bmp.getWidth(), bmp.getHeight() / 4, matrix, true);
+        return rotatedBitMap;
+    }
+
+    Matrix matrix = new Matrix();
+
+    private Bitmap cutRotateBitmapTest(Bitmap bmp) {
+        Bitmap rotatedBitMap = Bitmap.createBitmap(bmp, ViewFinderView.center.top,
+                ViewFinderView.center.left, ViewFinderView.center.height(), ViewFinderView.center.width()
+                , matrix, true);
         return rotatedBitMap;
     }
 

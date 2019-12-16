@@ -30,15 +30,22 @@ class MainActivity : AppCompatActivity() {
         } else {
             Log.e("Opencv", "opencv can't load opencv .")
         }
-
-        InitOpencv.initRecognizer(this)
         iv_lamp.setOnClickListener { FlashUtils.getInstance(cameraPreview.mCamera).switchFlash() }
     }
 
 
     override fun onResume() {
         super.onResume()
+        if (PermissionUtil.ApplyPermissionAlbum(this, 0)) {
+            initJniCamera()
+        }
+    }
+
+    private fun initJniCamera() {
+        preview_fl.removeAllViews()
+        InitOpencv.initRecognizer(this)
         preview_fl.addView(cameraPreview)
+        Log.e("add","add")
     }
 
     override fun onPause() {
@@ -67,5 +74,19 @@ class MainActivity : AppCompatActivity() {
         image.setImageBitmap(plate.bitmap)
         //        stopPreview();
     }
+
+
+    /**
+     * 申请权限结果回调
+     */
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+
+    }
+
 
 }
