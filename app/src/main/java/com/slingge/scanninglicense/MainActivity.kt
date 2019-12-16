@@ -1,5 +1,6 @@
 package com.slingge.scanninglicense
 
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
 import android.view.Window
@@ -45,7 +46,7 @@ class MainActivity : AppCompatActivity() {
         preview_fl.removeAllViews()
         InitOpencv.initRecognizer(this)
         preview_fl.addView(cameraPreview)
-        Log.e("add","add")
+        Log.e("add", "add")
     }
 
     override fun onPause() {
@@ -85,7 +86,11 @@ class MainActivity : AppCompatActivity() {
         grantResults: IntArray
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-
+        if (requestCode == 0) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {//询问结果
+                InitOpencv.initRecognizer(this)
+            }
+        }
     }
 
 
