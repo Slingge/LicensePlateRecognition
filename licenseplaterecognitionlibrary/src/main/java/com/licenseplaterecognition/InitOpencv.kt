@@ -1,4 +1,4 @@
-package com.slingge.scanninglicense
+package com.licenseplaterecognition
 
 import android.content.Context
 import android.os.Environment

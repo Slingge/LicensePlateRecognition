@@ -1,12 +1,14 @@
-package com.slingge.scanninglicense;
+package com.licenseplaterecognition;
 
 import android.graphics.Bitmap;
+
+import java.io.Serializable;
 
 /**
  * @author liuxuhui
  * @date 2019/6/20
  */
-public class PlateInfo {
+public class PlateInfo implements Serializable {
 
     /**
      * 车牌号

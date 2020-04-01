@@ -1,4 +1,4 @@
-package com.slingge.scanninglicense
+package com.licenseplaterecognition
 
 /**
  * 一直项目需要修改CPP文件夹下hyperlpr下javaWarpper.cpp文件包名、用到的实体类路径名

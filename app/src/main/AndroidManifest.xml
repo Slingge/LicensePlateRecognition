@@ -4,12 +4,12 @@
     package="com.slingge.scanninglicense">
 
 
-
     <uses-feature android:name="android.hardware.camera.autofocus" />
+
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <!-- ************************************* -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <!-- 在SD卡中创建文件与删除文件权限 -->
@@ -22,9 +22,10 @@
 
     <uses-feature android:name="android.hardware.camera" />
     <!-- 开启闪光灯权限 -->
-    <uses-permission android:name="android.permission.HARDWARE_TEST"
+    <uses-permission
+        android:name="android.permission.HARDWARE_TEST"
         tools:ignore="ProtectedPermissions" />
-    <uses-permission android:name="android.permission.FLASHLIGHT"/>
+    <uses-permission android:name="android.permission.FLASHLIGHT" />
 
     <application
         android:allowBackup="true"
@@ -41,6 +42,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity android:name="com.licenseplaterecognition.LicensePlateRecognitionActivity" />
+
     </application>
 
 </manifest>

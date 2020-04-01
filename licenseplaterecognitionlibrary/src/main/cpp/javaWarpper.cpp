@@ -95,7 +95,7 @@ std::string jstring2str(JNIEnv *env, jstring jstr) {
 
 extern "C" {
 JNIEXPORT jlong JNICALL
-Java_com_slingge_scanninglicense_PlateRecognition_InitPlateRecognizer(
+Java_com_licenseplaterecognition_PlateRecognition_InitPlateRecognizer(
         JNIEnv *env, jobject obj,
         jstring detector_filename,
         jstring finemapping_prototxt, jstring finemapping_caffemodel,
@@ -128,7 +128,7 @@ Java_com_slingge_scanninglicense_PlateRecognition_InitPlateRecognizer(
 
 
 JNIEXPORT jstring JNICALL
-Java_com_slingge_scanninglicense_PlateRecognition_SimpleRecognization(
+Java_com_licenseplaterecognition_PlateRecognition_SimpleRecognization(
         JNIEnv *env, jobject obj,
         jlong matPtr, jlong object_pr) {
     pr::PipelinePR *PR = (pr::PipelinePR *) object_pr;
@@ -162,10 +162,10 @@ Java_com_slingge_scanninglicense_PlateRecognition_SimpleRecognization(
  * @return
  */
 JNIEXPORT jobject JNICALL
-Java_com_slingge_scanninglicense_PlateRecognition_PlateInfoRecognization(
+Java_com_licenseplaterecognition_PlateRecognition_PlateInfoRecognization(
         JNIEnv *env, jobject obj,
         jlong matPtr, jlong object_pr) {
-    jclass plateInfo_class = env->FindClass("com/slingge/scanninglicense/PlateInfo");
+    jclass plateInfo_class = env->FindClass("com/licenseplaterecognition/PlateInfo");
     jmethodID mid = env->GetMethodID(plateInfo_class, "<init>", "()V");
     jobject plateInfoObj = env->NewObject(plateInfo_class, mid);
 
@@ -222,7 +222,7 @@ Java_com_slingge_scanninglicense_PlateRecognition_PlateInfoRecognization(
 
 
 JNIEXPORT void JNICALL
-Java_com_slingge_scanninglicense_PlateRecognition_ReleasePlateRecognizer(
+Java_com_licenseplaterecognition_PlateRecognition_ReleasePlateRecognizer(
         JNIEnv *env, jobject obj,
         jlong object_re) {
 //    std::string hello = "Hello from C++";

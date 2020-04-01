@@ -1,4 +1,4 @@
-package com.slingge.scanninglicense;
+package com.licenseplaterecognition;
 
 import android.app.Activity;
 import android.content.Context;
@@ -216,7 +216,7 @@ public class CameraPreviews extends SurfaceView implements SurfaceHolder.Callbac
 
             result.bitmaps = bitmaps;
             bitmap.recycle();
-            sendPlate(result);
+
 //            Log.e(TAG, "onPreviewFrame: " + result.plateName + "----time: " + System.currentTimeMillis());
             if (!isStopReg && result != null && !TextUtils.isEmpty(result.plateName)) {
                 isStopReg = true;
